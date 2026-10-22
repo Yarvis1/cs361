@@ -1,0 +1,56 @@
+mermaid```
+graph TB
+    Client[Client Application]
+    Auth[Authentication Service]
+    Lobby[Lobby Service]
+    Matching[Game Matching Service]
+    GameEngine[Game Engine]
+    Chat[Chat Server]
+    Stats[Statistics Service]
+    GameState[Game State Store]
+    UserDB[User Database]
+    StatsDB[Statistics Database]
+    Observer[Observer Service]
+    
+    Client -->|Login| Auth
+    Auth -->|Verify credentials| UserDB
+    Auth -->|Auth token| Client
+    
+    Client -->|Enter lobby| Lobby
+    Lobby -->|Fetch player stats| Stats
+    Stats -->|Query| StatsDB
+    Lobby -->|Display players| Client
+    
+    Client -->|Send message| Chat
+    Chat -->|Broadcast| Lobby
+    Chat -->|Store history| StatsDB
+    
+    Lobby -->|Request match| Matching
+    Matching -->|Get player ratings| Stats
+    Matching -->|Find opponent| Lobby
+    Matching -->|Create game| GameEngine
+    
+    GameEngine -->|Initialize| GameState
+    GameEngine -->|Game moves| Client
+    Client -->|Move| GameEngine
+    GameEngine -->|Update state| GameState
+    GameEngine -->|Determine winner| GameEngine
+    
+    GameEngine -->|Record result| Stats
+    Stats -->|Update ratings| StatsDB
+    
+    Client -->|Watch game| Observer
+    Observer -->|Get game state| GameState
+    Observer -->|Stream to observers| Observer
+    
+    GameEngine -->|Notify| Lobby
+    Lobby -->|Player available| Lobby
+    
+    classDef service stroke:#818cf8,fill:#eef2ff
+    classDef storage stroke:#2dd4bf,fill:#f0fdfa
+    classDef client stroke:#fb923c,fill:#fff7ed
+    
+    class Auth,Lobby,Matching,GameEngine,Chat,Stats,Observer service
+    class UserDB,StatsDB,GameState storage
+    class Client client
+```
