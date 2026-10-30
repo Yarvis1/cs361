@@ -1,0 +1,3 @@
+1. **addition of kiosk idle session in failure modes:** while it does have a cause impact and resolution its not a strict failure and is the intended functionality of the system for kiosk reusal.
+2. **5 additional functions in interfaces:** the 5 additional functions in the interfaces section adds vital information to stakeholder how the system is intended to works since 6 functions was limiting to make a proper example of the system.
+3. **addition of entities in the ER diagram:** adding Damage report, transaction audit log and staff data entities includes how all the data in the interface section is stored and what its attributed to aswell as their proper relations.
